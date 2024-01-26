@@ -62,3 +62,45 @@ public:
 };
 
 ======================================================================================================================================================================================================================================================
+TABULATION APPROACH
+ 
+ int minPathSum(vector<vector<int>>&grid){
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(m,vector<int>(n,INT_MAX));
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0) dp[i][j]=grid[i][j];
+                if(i>=1){
+                    dp[i][j]=min(dp[i][j],dp[i-1][j]+grid[i][j]);
+                }
+                if(j>=1) dp[i][j]= min(dp[i][j],dp[i][j-1]+grid[i][j]);
+            }
+        }
+        return dp[m-1][n-1];
+    }
+
+======================================================================================================================================================================================================================================================
+ TABULATION WITH SPACE OPTIMIZATION   
+ 
+ int minPathSum(vector<vector<int>>&grid){
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<int> dp(n);
+        dp[0]=grid[0][0];
+        for(int i=1;i<n;i++) dp[i]=grid[0][i]+dp[i-1];
+        for(int i=1;i<m;i++){
+            int prev = INT_MAX;
+            for(int j=0;j<n;j++){
+                if(j==0){ 
+                    dp[j]=dp[j]+grid[i][j];
+                    prev = dp[j];
+                }
+                else{
+                    dp[j]=min(dp[j],prev)+grid[i][j];
+                    prev = dp[j];
+                }
+            }
+        }
+        return dp.back();
+    }
