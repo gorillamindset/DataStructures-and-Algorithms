@@ -81,26 +81,3 @@ TABULATION APPROACH
     }
 
 ======================================================================================================================================================================================================================================================
- TABULATION WITH SPACE OPTIMIZATION   
- 
- int minPathSum(vector<vector<int>>&grid){
-        int m = grid.size();
-        int n = grid[0].size();
-        vector<int> dp(n);
-        dp[0]=grid[0][0];
-        for(int i=1;i<n;i++) dp[i]=grid[0][i]+dp[i-1];
-        for(int i=1;i<m;i++){
-            int prev = INT_MAX;
-            for(int j=0;j<n;j++){
-                if(j==0){ 
-                    dp[j]=dp[j]+grid[i][j];
-                    prev = dp[j];
-                }
-                else{
-                    dp[j]=min(dp[j],prev)+grid[i][j];
-                    prev = dp[j];
-                }
-            }
-        }
-        return dp.back();
-    }
