@@ -77,7 +77,7 @@ int ninjaTraining(int n, vector<vector<int>> &points)
 }
 
 =======================================================================================================================================================================================================
-STRIVER'S MEMOIZATION APPROACH NOT THAT INTUITIVE TO ME BUT TAKE A LOOK ONCE
+//STRIVER'S MEMOIZATION APPROACH NOT THAT INTUITIVE TO ME BUT TAKE A LOOK ONCE
 
 #include <bits/stdc++.h>
 using namespace std;
