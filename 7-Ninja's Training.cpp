@@ -50,7 +50,6 @@ TABULATION WITH SPACE OPTIMIZATION
 
 int ninjaTraining(int n, vector<vector<int>> &points)
 {
-
     vector<int> dp(3);
     for(int i=0;i<3;i++){
         dp[i] = points[0][i];
@@ -75,16 +74,6 @@ int ninjaTraining(int n, vector<vector<int>> &points)
         maxi= max(dp[i],maxi);
     }
     return maxi;
-
-
-
-    // vector<vector<int>> dp(n,vector<int>(3,-1));
-    // pointsCal(n-1,dp,points,n);
-    // int maxi = 0;
-    // for(int i=0;i<3;i++){
-    //     maxi = max(dp[n-1][i],maxi);
-    // }
-    // return maxi;
 }
 
 =======================================================================================================================================================================================================
