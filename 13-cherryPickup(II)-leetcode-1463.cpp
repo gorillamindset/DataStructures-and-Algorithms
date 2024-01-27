@@ -69,3 +69,80 @@ public:
     }
 };
 ======================================================================================================================================================================================================================================================
+TABULATION 
+
+    int cherryPickup(vector<vector<int>>& grid){
+        int m = grid.size();
+        int n = grid[0].size();
+
+        vector<vector<vector<int>>> dp(m,vector<vector<int>>(n, vector<int>(n,0)));
+
+        for(int j1=0;j1<n;j1++){
+            for(int j2=0;j2<n;j2++){
+                if(j1==j2) dp[m-1][j1][j2] = grid[m-1][j1];
+                else dp[m-1][j1][j2] = grid[m-1][j1]+grid[m-1][j2]; 
+            }
+        }
+
+        for(int i=m-2;i>=0;i--){
+            for(int j1=0;j1<n;j1++){
+                for(int j2=0;j2<n;j2++){
+                    int maxi =INT_MIN;
+                    for(int a=-1;a<=1;a++){
+                        for(int b=-1;b<=1;b++){
+                            int value=0;
+                            if(j1==j2) value+=grid[i][j1];
+                            else value+=grid[i][j1]+grid[i][j2];
+                            if(j1+a>=0 && j2+b>=0 && j1+a<n && j2+b<n){
+                                value+=dp[i+1][j1+a][j2+b];
+                                maxi = max(maxi,value);
+                            }
+                        }
+                    }
+                    dp[i][j1][j2] = maxi;  
+                } 
+            }
+        }
+        return dp[0][0][n-1];
+    }
+
+======================================================================================================================================================================================================================================================
+TABULATION WITH SPACE OPTIMIZATION
+ 
+ int cherryPickup(vector<vector<int>>& grid){
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> dp(n,vector<int>(n,0));
+
+        for(int j1=0;j1<n;j1++){
+            for(int j2=0;j2<n;j2++){
+                if(j1==j2) dp[j1][j2] = grid[m-1][j1];
+                else dp[j1][j2] = grid[m-1][j1]+grid[m-1][j2]; 
+            }
+        }
+        vector<vector<int>> curr(n,vector<int>(n,0));
+        for(int i=m-2;i>=0;i--){
+            for(int j1=0;j1<n;j1++){
+                for(int j2=0;j2<n;j2++){
+                    int maxi =INT_MIN;
+                    for(int a=-1;a<=1;a++){
+                        for(int b=-1;b<=1;b++){
+                            int value=0;
+                            if(j1==j2) value+=grid[i][j1];
+                            else value+=grid[i][j1]+grid[i][j2];
+                            if(j1+a>=0 && j2+b>=0 && j1+a<n && j2+b<n){
+                                value+=dp[j1+a][j2+b];
+                                maxi = max(maxi,value);
+                            }
+                        }
+                    }
+                    curr[j1][j2] = maxi;  
+                } 
+            }
+            dp=curr;
+        }
+        return dp[0][n-1];
+
+======================================================================================================================================================================================================================================================
+
+
