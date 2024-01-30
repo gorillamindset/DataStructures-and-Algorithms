@@ -96,7 +96,6 @@ MEMOIZATION
   
 int subset(int index,vector<int>&arr,int target,vector<vector<int>>&dp){
 	if(index<0) return 0;
-	if(target==0) return dp[index][target] = 1;
 	if(index==0){
 		if(target ==0 && arr[0]==0) return  2;
 		if(target ==0 || target==arr[0]) return 1;;
