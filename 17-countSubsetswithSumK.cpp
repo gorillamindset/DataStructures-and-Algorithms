@@ -49,7 +49,9 @@ TABULATION
 int findWays(vector<int>& arr, int k)
 {
 	vector<vector<int>> dp(arr.size(),vector<int>(k+1,0));
-	if(arr[0]<=k) dp[0][arr[0]]=1;
+	if(arr[0]<=k && arr[0]!=0) dp[0][arr[0]]=1;
+	if(arr[0]==0) dp[0][0]=2;
+	else dp[0][0]=1;
 	vector<vector<int>> curr(arr.size(),vector<int>(k+1,0));
 	for(int i=0;i<arr.size();i++){
 		dp[i][0] = 1;
@@ -72,10 +74,11 @@ TABULATION WITH SPACE OPTIMIZATION
 int findWays(vector<int>& arr, int k)
 {
 	vector<int> dp(k+1,0);
-	if(arr[0]<=k) dp[arr[0]]=1;
+	if(arr[0]<=k && arr[0]!=0) dp[arr[0]]=1;
 	vector<int> curr(k+1,0);
 	curr[0]=1;
-	dp[0]=1;
+	if(arr[0]==0) dp[0]=2;
+	else dp[0]=1;
 	for(int i=1;i<arr.size();i++){
 		for(int j=0;j<=k;j++){
 			int notTake = dp[j];
