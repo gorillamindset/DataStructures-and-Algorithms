@@ -59,7 +59,8 @@ TABULATION WITH SPACE OPTIMIZATION
     //   if(ans!=INT_MAX) return ans;
     //   return -1;
 
-// here you dont need to loop through the previous array every time because j-k*coins[i] is already calculated in the present array in the previous iterations. Hence better approach is below 
+// here you dont need to reduce the present target by coins[i] every time and calculate mincoins for that amount in the previous array we can directly get it in the present array mincoins 
+  // for j-coins[i] calculated in the present array in the previous iterations. Hence better approach is below 
 
     int coinChange(vector<int>& coins, int amount) {
         if(amount==0) return 0;
