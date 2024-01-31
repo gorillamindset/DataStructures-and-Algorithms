@@ -24,40 +24,40 @@ Constraints:
 =========================================================================================================================================================================================================================================================
 
 TABULATION WITH SPACE OPTIMIZATION
-    int coinChange(vector<int>& coins, int amount) {
-      if(amount==0) return 0;
-      vector<int> dp(amount+1,0);
-      for(int i=1;i<=amount;i++){
-          int temp = i%coins[0];
-          if(temp) dp[i] = INT_MAX;
-          else dp[i]=i/coins[0];
-      }
-      vector<int> curr(amount+1,0);
-      for(int i=1;i<coins.size();i++){
-          for(int j=1;j<=amount;j++){
-              int notTake = dp[j];
-              int take = INT_MAX;
-              if(coins[i]<=j){
-                  int count = j/coins[i] ;
-                  if(j%coins[i]){
-                      int temp = dp[j%coins[i]];
-                      if(temp!=INT_MAX) count+=temp;
-                      else count=INT_MAX;
-                  }
-                  int k = 1;
-                  while(j-k*coins[i]>0){
-                      if(dp[j-k*coins[i]]!=INT_MAX) count = min(k+dp[j-k*coins[i]],count);
-                      k++;
-                  }
-                  take = count;
-              }
-              curr[j] = min(take,notTake); 
-          }
-          dp = curr;
-      }
-      int ans = dp[amount];
-      if(ans!=INT_MAX) return ans;
-      return -1;
+    // int coinChange(vector<int>& coins, int amount) {
+    //   if(amount==0) return 0;
+    //   vector<int> dp(amount+1,0);
+    //   for(int i=1;i<=amount;i++){
+    //       int temp = i%coins[0];
+    //       if(temp) dp[i] = INT_MAX;
+    //       else dp[i]=i/coins[0];
+    //   }
+    //   vector<int> curr(amount+1,0);
+    //   for(int i=1;i<coins.size();i++){
+    //       for(int j=1;j<=amount;j++){
+    //           int notTake = dp[j];
+    //           int take = INT_MAX;
+    //           if(coins[i]<=j){
+    //               int count = j/coins[i] ;
+    //               if(j%coins[i]){
+    //                   int temp = dp[j%coins[i]];
+    //                   if(temp!=INT_MAX) count+=temp;
+    //                   else count=INT_MAX;
+    //               }
+    //               int k = 1;
+    //               while(j-k*coins[i]>0){
+    //                   if(dp[j-k*coins[i]]!=INT_MAX) count = min(k+dp[j-k*coins[i]],count);
+    //                   k++;
+    //               }
+    //               take = count;
+    //           }
+    //           curr[j] = min(take,notTake); 
+    //       }
+    //       dp = curr;
+    //   }
+    //   int ans = dp[amount];
+    //   if(ans!=INT_MAX) return ans;
+    //   return -1;
 
 // here you dont need to loop through the previous array every time because j-k*coins[i] is already calculated in the present array in the previous iterations. Hence better approach is below 
 
