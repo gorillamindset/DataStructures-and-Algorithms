@@ -59,6 +59,33 @@ TABULATION WITH SPACE OPTIMIZATION
       if(ans!=INT_MAX) return ans;
       return -1;
 
+// here you dont need to loop through the previous array every time because j-k*coins[i] is already calculated in the present array in the previous iterations. Hence better approach is below 
+
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount==0) return 0;
+        vector<int> dp(amount+1,0);
+        for(int i=1;i<=amount;i++){
+            int temp = i%coins[0];
+            if(temp) dp[i] = INT_MAX;
+            else dp[i]=i/coins[0];
+        }
+        vector<int> curr(amount+1,0);
+        for(int i=1;i<coins.size();i++){
+            for(int j=1;j<=amount;j++){
+                int notTake = dp[j];
+                int take = INT_MAX;
+                if(coins[i]<=j){
+                    take = curr[j-coins[i]];
+                    if(take!=INT_MAX) take++; 
+                }
+                curr[j] = min(take,notTake); 
+            }
+            dp = curr;
+        }
+        int ans = dp[amount];
+        if(ans!=INT_MAX) return ans;
+        return -1;
+
 
 =========================================================================================================================================================================================================================================================
 MEMOIZATION
