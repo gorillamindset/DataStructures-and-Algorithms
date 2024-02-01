@@ -53,7 +53,33 @@ Constraints
 Time Limit: 1 sec
 */
 ================================================================================================================================================================================================================================================
-TABULATION WITH SPACE OPTIMIZATION
+TABULATION WITH SPACE OPTIMIZATION--1 ARRAY]
+  
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
+
+    vector<int> dp(w+1,0);
+    for(int i =0;i<=w;i++){
+        if(weight[0]<=i){
+            dp[i]=(i/weight[0])*profit[0];
+        }
+    }
+    dp[0]=0;
+    for(int i=1;i<n;i++){
+        for(int j=0;j<=w;j++){
+            int notTake = dp[j];
+            int take = 0;
+            if(weight[i]<=j){
+                take+= profit[i]+dp[j-weight[i]];
+            }
+            dp[j]=max(take,notTake);
+        }
+        // dp =curr;
+    }
+    return dp[w];
+}
+
+================================================================================================================================================================================================================================================
+TABULATION WITH SPACE OPTIMIZATION--2 ARRAYS
 
 int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
 
