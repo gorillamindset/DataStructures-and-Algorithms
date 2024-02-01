@@ -1,3 +1,4 @@
+/*
 Problem statement
 You are given ‘n’ items with certain ‘profit’ and ‘weight’ and a knapsack with weight capacity ‘w’.
 You need to fill the knapsack with the items in such a way that you get the maximum profit. You are allowed to take one item multiple times.
@@ -50,7 +51,7 @@ Constraints
 1 <= w <= 10^3
 1 <= profit[i] , weight[i] <= 10^8
 Time Limit: 1 sec
-
+*/
 ================================================================================================================================================================================================================================================
 TABULATION WITH SPACE OPTIMIZATION
 
