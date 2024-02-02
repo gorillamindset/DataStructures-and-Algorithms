@@ -21,6 +21,30 @@ Explanation: There is no such common subsequence, so the result is 0.
 Constraints:
 1 <= text1.length, text2.length <= 1000
 text1 and text2 consist of only lowercase English characters.
+
+================================================================================================================================================================================================================================================
+TABULATION WITH SPACE OPTIMIZATION
+
+    int longestCommonSubsequence(string s, string t) {
+        int m = s.size();
+        int n = t.size();
+        vector<int> dp(n+1,0),curr(n+1,0);
+
+        dp[0]=0;
+
+        for(int i=1;i<=s.size();i++){
+            for(int j=1;j<=t.size();j++){
+                if(s[i-1]==t[j-1]){
+                    curr[j]=1+dp[j-1];
+                    continue;
+                }
+                else curr[j] = max(dp[j],curr[j-1]);
+            }
+            dp = curr;
+        }
+        return dp[n];
+
+ 
 ================================================================================================================================================================================================================================================
 MEMOIZATION
  
