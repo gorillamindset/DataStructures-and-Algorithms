@@ -68,7 +68,7 @@ TABULATION
                    dp[i][j]=1+dp[i-1][j-1];
                    continue;
                }
-               else dp[i][j] = max(max(dp[i-1][j],dp[i][j-1]),dp[i-1][j-1]);
+               else dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
            }
        }
        return dp[s.size()-1][t.size()-1];
