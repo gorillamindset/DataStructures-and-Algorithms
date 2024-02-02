@@ -76,5 +76,25 @@ int cutRod(vector<int> &price, int n)
 	return maximize(price.size(),price,n,dp);
 }
 ================================================================================================================================================================================================================================================
+TABULATION WITH SPACE OPTIMIZATION
 
-
+int cutRod(vector<int> &price, int n)
+{
+	vector<int> dp(n+1,0),curr(n+1,0);
+	for(int i=1;i<=n;i++){
+		dp[i] = (i/1)*price[0];
+	}
+	dp[0] = 0;
+	for(int i=2;i<=n;i++){
+		for(int j=1;j<=n;j++){
+			int notTake = dp[j];
+			int take = 0;
+			if(i<=j){
+				take+= price[i-1] + curr[j-i];
+			}
+			curr[j] = max(take,notTake);
+		}
+		dp = curr;
+	}
+	return dp[n];
+}
