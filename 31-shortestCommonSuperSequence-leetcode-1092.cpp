@@ -17,6 +17,56 @@ Output: "aaaaaaaa"
 Constraints:
 1 <= str1.length, str2.length <= 1000
 str1 and str2 consist of lowercase English letters.
+
+================================================================================================================================================================================================================================================
+TABULATION
+#include<bits/stdc++.h>
+
+class Solution {
+public:
+    string shortestCommonSupersequence(string s, string t) {
+        int len1 = s.size();
+        int len2 = t.size();
+        vector<vector<int>> dp(len1+1,vector<int>(len2+1,0));
+        for(int i=1;i<=len1;i++){
+            for(int j=1;j<=len2;j++){
+                if(s[i-1] == t[j-1]){
+                    dp[i][j] = 1+dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+                }
+            }
+        }
+        string ans = "";
+        int i=len1,j=len2;
+        while(i>0 && j>0){
+            if(s[i-1]==t[j-1]){
+                ans+=s[i-1];
+                i--,j--;
+            }
+            else if(dp[i-1][j]>dp[i][j-1]){
+                ans+=s[i-1];
+                i--;
+            }
+            else{
+                ans+=t[j-1];
+                j--;
+            }
+        }
+        while(i>0){
+            ans.push_back(s[i-1]);
+            i--;
+        }
+        while(j>0){
+            ans.push_back(t[j-1]);
+            j--;
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
+  
 ================================================================================================================================================================================================================================================
 TABULATION
 
