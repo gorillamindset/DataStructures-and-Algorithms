@@ -25,6 +25,57 @@ Constraints:
 1 <= words[i].length <= 16
 words[i] only consists of lowercase English letters.
 ==================================================================================================================================================================================================================================================
+TABULATION || CONSTRUCTIVE ALGORITHM
+
+    int comp(string& s,string& t){
+        int i=0,j=0;
+        int count = 0;
+        int flag = (s.size()>t.size());
+        while(i<s.size() && j<t.size()){
+            if(s[i]==t[j]){
+                i++;
+                j++;
+            }
+            else{
+                if(flag) i++;
+                else j++;
+                count++;
+            } 
+        }
+        while(i<s.size()){
+            count++;
+            i++;
+        } 
+        while(j<t.size()){
+            count++;
+            j++;
+        }
+        if(count==1) return 1;
+        return 0;
+    }
+
+    int longestStrChain(vector<string>& words) {
+        vector<pair<int,int>> temp(words.size());
+        for(int i=0;i<words.size();i++) temp[i] = {words[i].size(),i};
+        sort(temp.begin(),temp.end());
+        vector<string> realWords;
+        for(auto it:temp){
+            realWords.push_back(words[it.second]);
+        }
+        int n = words.size();
+        vector<int>dp(n,1);
+        int maxi = 1;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<i;j++){
+                if(comp(realWords[j],realWords[i])){
+                    dp[i] = max(dp[i],dp[j]+1);
+                }
+                maxi= max(maxi,dp[i]);
+            }
+        }
+        return maxi;
+    }
+==================================================================================================================================================================================================================================================
 MEMOIZATION
 class Solution {
 public:
