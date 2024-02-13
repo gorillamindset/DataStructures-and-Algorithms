@@ -59,3 +59,20 @@ int matrixMultiplication(vector<int> &arr, int N)
     return multi(1,N-1,arr,dp);
 }
 =======================================================================================================================================================================================================================================
+TABULATION
+
+int matrixMultiplication(vector<int> &arr, int N)
+{
+    vector<vector<int>>dp(N,vector<int>(N,0));
+    for(int i=N-1;i>=1;i--){
+        for(int j=i;j<N;j++){
+            if(i==j) continue;
+            int mini = INT_MAX;
+            for(int k=i;k<j;k++){
+                mini = min( (dp[i][k] + dp[k+1][j] + arr[k]*arr[i-1]*arr[j]) , mini);
+            }
+            dp[i][j] = mini;
+        }
+    }
+    return dp[1][N-1];
+}
