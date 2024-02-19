@@ -52,3 +52,51 @@ int cost(int i,int j,int ind1,int ind2,vector<int>& cuts,vector<vector<int>>& dp
         return cost(0,n,0,m-1,cuts,dp);
     }
 ================================================================================================================================================================================================================================
+MEMOIZATION
+//SAME THING BUT USING JUST IND1,IND2 NOT USING i,j;
+      int cost(int ind1,int ind2,vector<int>& cuts,vector<vector<int>>& dp){
+        if(ind1>ind2){
+            return 0;
+        }
+        if(dp[ind1][ind2]!=-1) return dp[ind1][ind2];
+        int mincost = INT_MAX;
+        for(int k=ind1;k<=ind2;k++){
+            int cost1 = cost(ind1,k-1,cuts,dp);
+            int cost2 = cost(k+1,ind2,cuts,dp);
+            if(cost1!=INT_MAX && cost2!=INT_MAX){
+                mincost = min( mincost, cuts[ind2+1] - cuts[ind1-1] + cost1 + cost2);
+            }
+        }
+        return dp[ind1][ind2] = mincost==INT_MAX ? 0 : mincost;
+    }
+
+    int minCost(int n, vector<int>& cuts) {
+        cuts.push_back(n);
+        cuts.push_back(0);
+        sort(cuts.begin(),cuts.end());
+        int m = cuts.size();
+        vector<vector<int>> dp(m,vector<int>(m,-1));
+        return cost(1,m-2,cuts,dp);
+    }
+================================================================================================================================================================================================================================
+  TABULATION
+    int minCost(int n, vector<int>& cuts) {
+        int m = cuts.size();
+        cuts.push_back(n);
+        cuts.push_back(0);
+        sort(cuts.begin(),cuts.end());
+        vector<vector<int>> dp(m+2,vector<int>(m+2,0));
+
+        for(int i=m;i>=1;i--){
+            for(int j=1;j<=m;j++){
+                if(i>j) continue;
+                int mini = INT_MAX;
+                for(int ind = i;ind<=j;ind++){
+                    int cost = cuts[j+1]-cuts[i-1]+dp[i][ind-1] + dp[ind+1][j];
+                    mini = min(mini,cost);
+                }
+                dp[i][j] = mini;
+            }
+        }
+        return dp[1][m];
+    }
